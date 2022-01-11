@@ -27,8 +27,12 @@ SELECT distinct Age FROM Student
 INSERT INTO Student(Age)
 VALUES (30)
 
-DELETE FROM Student
+UPDATE Student
+SET Age = 32
 WHERE Age = 30
+
+DELETE FROM Student
+WHERE Age = 32
 
 SELECT * FROM Student
 WHERE Age = 20
