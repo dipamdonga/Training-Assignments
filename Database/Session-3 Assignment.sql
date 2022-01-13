@@ -9,7 +9,6 @@ UPDATE Student
 SET Student.First_name = 'User'
 WHERE Student.Age BETWEEN 20 AND 22;
 
-
 COMMIT TRANSACTION
 
 ROLLBACK TRANSACTION
@@ -42,3 +41,4 @@ REVOKE SELECT ON TrainingDB TO dipam
 
 GRANT CONTROL ON DATABASE :: TrainingDB TO dipam
 
+REVOKE CONTROL ON DATABASE :: TrainingDB TO dipam
