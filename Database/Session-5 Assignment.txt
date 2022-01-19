@@ -1,0 +1,117 @@
+-- Perform CRUD operation on MongoDB shell
+
+------------- Creation of database and collections -------------
+
+show dbs
+
+use demodb
+
+db.createCollection('test')
+
+show collections
+
+---------------  CRUD operation --------------- 
+
+-- insert Operations
+
+db.test.insert({
+  title: 'Test One',
+  body: 'Body of test one',
+  category: 'News',
+  tags: ['news', 'events'],
+  date: Date()
+})
+
+db.test.insertMany([
+  {
+    title: 'Test Two',
+    body: 'Body of test two',
+    category: 'Technology',
+    tags: ['Technology', '.net', 'java'],
+    date: Date()
+  },
+  {
+    title: 'Test Three',
+    body: 'Body of test three',
+    category: 'News',
+    date: Date()
+  },
+  {
+    title: 'Test Four',
+    body: 'Body of test three',
+    category: 'Entertainment',
+    date: Date()
+  }
+])
+
+-- Read Operations
+
+db.test.find()
+
+db.test.find().pretty()
+
+db.test.find({ category: 'News' }).pretty()
+
+-- Update operation
+
+db.test.update({ title: 'Test Two' },
+{
+  $set: {
+    body: 'Body for test 2',
+    category: 'Technology'
+  }
+})
+
+db.test.update({ title: 'Test One' },
+{
+  $set: {
+    comments: [
+      {
+        body: 'Comment One',
+        user: 'Rajesh Joshi',
+        date: Date()
+      },
+      {
+        body: 'Comment Two',
+        user: 'Raj Patel',
+        date: Date()
+      }
+    ]
+  }
+})
+
+-- Delete operation
+
+db.test.remove({ title: 'Test Four' })
+
+----------------- Find by element and adding index -----------------
+
+-- find by element
+
+db.test.find({
+  comments: {
+     $elemMatch: {
+       user: 'Raj Patel'
+       }
+    }
+  }
+).pretty()
+
+db.test.find({
+  comments: {
+     $elemMatch: {
+       user: 'Rajesh Joshi'
+       }
+    }
+  }
+).pretty()
+
+-- Indexing
+
+db.test.createIndex({ title: 'text' })
+
+db.test.find({
+  $text: {
+    $search: "\"Test T\""
+    }
+}).pretty()
