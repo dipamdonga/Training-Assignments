@@ -1,0 +1,14 @@
+/* navbar start */
+.navbar ul { list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333; position: sticky; top: 2px; }
+.navbar li { float: left; }
+.navbar li a { display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
+.navbar li a:hover { background-color: #111; }
+
+/* sidebar start */
+.sidebar ul { list-style-type: none; margin: 0; padding: 0; width: 15%; background-color: #f1f1f1; position: fixed; height: 100vw; overflow: auto; }
+.sidebar li a { display: block; color: #000; padding: 8px 16px; text-decoration: none;   }
+.sidebar li a.active { background-color: #04AA6D; color: white;   }
+.sidebar li a:hover:not(.active) { background-color: #555; color: white; }
+
+/* content start */
+.content { margin-left:15%; padding:1px 16px;}
