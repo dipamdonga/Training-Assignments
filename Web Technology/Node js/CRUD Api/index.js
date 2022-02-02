@@ -53,11 +53,10 @@ app.put('/api/users/:id', (req, res) => {
     const findUser = users.find(u => u.id === parseInt(req.params.id));
     if(!findUser) return res.status(404).send(`User with id: ${req.params.id} dose not exist!`);
 
-    const index = users.indexOf(findUser);
-    users.splice(index, 1);
+    // const index = users.indexOf(findUser);
+    // users.splice(index, 1);
     
     // update data
-    findUser.id = req.params.id;
     findUser.name = req.body.name;
     findUser.password = req.body.password;
     findUser.gender = req.body.gender;
@@ -66,9 +65,14 @@ app.put('/api/users/:id', (req, res) => {
     findUser.country = req.body.country;
     findUser.phone = req.body.phone;
 
-    users.push(findUser);
+    // users.push(findUser);
 
-    fs.writeFile('./data.json', JSON.stringify(users), 'utf8', (error) => {
+    const newState = users.map(obj =>
+        obj.id === req.params.id ? { ...obj, findUser } : obj
+    );
+    // console.log(newState);
+
+    fs.writeFile('./data.json', JSON.stringify(newState), 'utf8', (error) => {
         if(error) {
             console.log(error);
         } else {
