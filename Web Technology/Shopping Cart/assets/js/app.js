@@ -41,7 +41,7 @@ function LoadInventory() {
     for (let i = 0; i < productArr.length; i++) {
         let card = ' <div class="card p-3 bg-white col-3 mx-2 shadow"> <div class="about-product text-center mt-2"><img style="height: 160px;" src=" '
             + productArr[i].pImage +
-            ' "> <div> <h4> '
+            ' "> <div class="mt-3"> <h4> '
             + productArr[i].pName +
             ' </h4> </div> </div> <div class="stats mt-2"> <div class="d-flex justify-content-center text-black-50"> '
             + productArr[i].pDescription +
@@ -49,9 +49,9 @@ function LoadInventory() {
             + productArr[i].pQuantity +
             ' </span></div> <div class="d-flex justify-content-between p-price"><span><b> Price</b></span><span> ₹'
             + productArr[i].pPrice +
-            ' </span> </div> </div> <div class="d-flex justify-content-md-evenly total font-weight-bold mt-4"> <button id="btnAddToCart" onclick="btnAddToCartClick('
-            + productArr[i].id +
-            ')" class="btn btn-outline-primary">Add to Cart</button> <button class="btn btn-outline-danger" id="btnRemoveProduct" onclick="btnRemoveProductClick('
+            ' </span> </div> </div> <div class="d-flex justify-content-md-evenly total font-weight-bold mt-4"> <button id="btnAddToCart'+ i +'" onclick="btnAddToCartClick('
+             + productArr[i].id + //', ' + i +
+            ')" class="btn btn-outline-primary">Add to Cart</button> <button class="btn btn-outline-danger" id="btnRemoveProduct'+ i +'" onclick="btnRemoveProductClick('
             + i +
             ')">Remove</button> </div> </div> '
         inventoryCard.innerHTML += card;
@@ -113,12 +113,19 @@ function LoadCart() {
         sum += cartArr[i].CpPrice * cartArr[i].CpQuantity;
         // console.log(sum);
         cartCard.innerHTML += card;
+
+        const temp = 'btnRemoveProduct'+ cartArr[i].InventoryProductId;
+        console.log("btn remove disable "+temp);
+        document.getElementById(temp).disabled = true;
+        
     }
     subTotal.innerHTML = "₹" + sum;
     total.innerHTML = "₹" + sum;
+
 }
 
 function btnAddToCartClick(id) {
+    
     console.log("add to cart function");
     swal("Provide Product Quantity you want to buy:", {
         content: "input",
@@ -140,12 +147,17 @@ function btnAddToCartClick(id) {
                         CpPrice: productArr[id].pPrice,
                     }
                     cartArr.push(cartProduct);
-                    LoadCart();
 
                     updateInventory(id, InputProductQuantity);
+
+                    LoadCart();
                 }
+                // const temp = 'btnRemoveProduct'+i
+                // console.log("btn remove disable "+temp);
+                // document.getElementById(temp).disabled = true;
             }
         });
+    
 }
 
 function updateInventory(id, InputProductQuantity) {
@@ -159,4 +171,11 @@ function btnRemoveFromCartclick(id, CpQuantity, InventoryProductId) {
     cartArr.splice(id, 1);
     LoadCart();
 }
+
+// btnRemoveDisable() {
+//     const temp = 'btnRemoveProduct'+ cartArr[i].InventoryProductId;
+//     console.log("btn remove disable "+temp);
+//     document.getElementById(temp).disabled = true;
+// }
+
 //#endregion on submit click add product to Cart from product list
