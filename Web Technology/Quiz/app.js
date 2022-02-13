@@ -32,6 +32,8 @@ $(btnNext).click(function () {
 });
 
 $(btnFinish).click(function () {
+    if(data[i].Answer == data[i].Options[$("input[name='options']:checked").val()]) mark = mark + 1;
+
     $("#questionList").hide();
     $("#result").show();
 
@@ -53,10 +55,11 @@ function updatingQuestionList() {
     $('#option4').text(data[i].Options[3]);
 
     $("#btnNext").addClass("disabled");
+    $("#btnFinish").addClass("disabled");
 
     $("input[type=radio][name='options']").change(function () {
         $("#btnNext").removeClass("disabled");
-
+        $("#btnFinish").removeClass("disabled");
     });
 }
 
