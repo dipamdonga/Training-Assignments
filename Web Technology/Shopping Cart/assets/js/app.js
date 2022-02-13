@@ -146,7 +146,15 @@ function btnAddToCartClick(id) {
                         CpQuantity: InputProductQuantity,
                         CpPrice: productArr[id].pPrice,
                     }
-                    cartArr.push(cartProduct);
+                    //updating quantity in existing product
+                    let flag = true;
+                    for(let i = 0; i < cartArr.length; i++) {
+                        if(cartArr[i].InventoryProductId == id){
+                            flag = false;
+                            cartArr[i].CpQuantity = parseInt(cartArr[i].CpQuantity) + parseInt(InputProductQuantity);
+                        }
+                    }
+                    if(flag) cartArr.push(cartProduct);
 
                     updateInventory(id, InputProductQuantity);
 
